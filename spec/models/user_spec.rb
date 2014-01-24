@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  
+
 	before do 
 		@user = User.new(name: "zackteng", 
 						email: "tengzack@gmail.com",
@@ -16,6 +16,7 @@ describe User do
 	it { should respond_to(:password_digest) }
 	it { should respond_to(:password) }
 	it { should respond_to(:password_confirmation) }
+	it { should respond_to(:remember_token) }
 	it { should respond_to(:authenticate) }
 
 	it { should be_valid }
@@ -107,5 +108,10 @@ describe User do
 			@user.save
 			expect(@user.reload.email).to eq mixe_case_email.downcase
 		end
+	end
+
+	describe "remember token" do
+		before { @user.save }
+		its(:remember_token) { should_not be_blank }
 	end
 end
